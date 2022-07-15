@@ -25,21 +25,6 @@ export default class GateKepperController {
 
   async generateXLS(req, res) {
     try {
-      const HEADER_ROW = [
-        {
-          value: 'Nome',
-          fontWeight: 'bold',
-        },
-        {
-          value: 'Email',
-          fontWeight: 'bold',
-        },
-        {
-          value: 'Data de criação',
-          fontWeight: 'bold',
-        },
-      ];
-
       let users = await Users.find().lean();
 
       users = users.map((user) => {
@@ -91,7 +76,7 @@ export default class GateKepperController {
 
       const response = await writeXlsxFile(users, {
         schema,
-        filePath: `user.xlsx`,
+        filePath: `tmp/users.xlsx`,
       });
 
       return res.send(response);
